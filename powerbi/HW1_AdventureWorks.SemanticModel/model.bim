@@ -1,0 +1,502 @@
+{
+  "compatibilityLevel": 1606,
+  "model": {
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"FactInternetSales\",\"DimProduct\",\"DimProductSubcategory\",\"DimProductCategory\",\"DimCustomer\",\"DimDate\",\"DimSalesTerritory\"]"
+      },
+      {
+        "name": "__PBI_TimeIntelligenceEnabled",
+        "value": "1"
+      },
+      {
+        "name": "PBI_ProTooling",
+        "value": "[\"DevMode\"]"
+      }
+    ],
+    "culture": "tr-TR",
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "relationships": [
+      {
+        "name": "r0",
+        "fromColumn": "ProductKey",
+        "fromTable": "FactInternetSales",
+        "toColumn": "ProductKey",
+        "toTable": "DimProduct"
+      },
+      {
+        "name": "r1",
+        "fromColumn": "CustomerKey",
+        "fromTable": "FactInternetSales",
+        "toColumn": "CustomerKey",
+        "toTable": "DimCustomer"
+      },
+      {
+        "name": "r2",
+        "fromColumn": "OrderDateKey",
+        "fromTable": "FactInternetSales",
+        "toColumn": "DateKey",
+        "toTable": "DimDate"
+      },
+      {
+        "name": "r3",
+        "fromColumn": "SalesTerritoryKey",
+        "fromTable": "FactInternetSales",
+        "toColumn": "SalesTerritoryKey",
+        "toTable": "DimSalesTerritory"
+      },
+      {
+        "name": "r4",
+        "fromColumn": "ProductSubcategoryKey",
+        "fromTable": "DimProduct",
+        "toColumn": "ProductSubcategoryKey",
+        "toTable": "DimProductSubcategory"
+      },
+      {
+        "name": "r5",
+        "fromColumn": "ProductCategoryKey",
+        "fromTable": "DimProductSubcategory",
+        "toColumn": "ProductCategoryKey",
+        "toTable": "DimProductCategory"
+      }
+    ],
+    "sourceQueryCulture": "tr-TR",
+    "tables": [
+      {
+        "name": "FactInternetSales",
+        "columns": [
+          {
+            "name": "SalesOrderNumber",
+            "dataType": "string",
+            "lineageTag": "dedbf7c5-a4c7-4b43-93b1-946a1e1e20f2",
+            "sourceColumn": "SalesOrderNumber"
+          },
+          {
+            "name": "ProductKey",
+            "dataType": "int64",
+            "lineageTag": "5477e8d3-88f3-46a4-a75e-eea8e673bfe4",
+            "sourceColumn": "ProductKey",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "CustomerKey",
+            "dataType": "int64",
+            "lineageTag": "62a6898b-a1b2-4c5b-9059-ce99f3ef56e3",
+            "sourceColumn": "CustomerKey",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "OrderDateKey",
+            "dataType": "int64",
+            "lineageTag": "494a2402-7d3a-49f3-98b7-ff1c16a744d3",
+            "sourceColumn": "OrderDateKey",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "SalesTerritoryKey",
+            "dataType": "int64",
+            "lineageTag": "1af8f23d-b9d8-4980-bc10-68457d082cd2",
+            "sourceColumn": "SalesTerritoryKey",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "OrderQuantity",
+            "dataType": "int64",
+            "lineageTag": "67cfb339-cadb-4e62-9ea4-8b60936e9dc7",
+            "sourceColumn": "OrderQuantity"
+          },
+          {
+            "name": "SalesAmount",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"tr-TR\"}"
+              }
+            ],
+            "dataType": "decimal",
+            "formatString": "\"₺\"#,0.###############;-\"₺\"#,0.###############;\"₺\"#,0.###############",
+            "lineageTag": "ef9ebb1a-8aae-4ba3-a757-c9e10f4a4d69",
+            "sourceColumn": "SalesAmount",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "TotalProductCost",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"tr-TR\"}"
+              }
+            ],
+            "dataType": "decimal",
+            "formatString": "\"₺\"#,0.###############;-\"₺\"#,0.###############;\"₺\"#,0.###############",
+            "lineageTag": "4dd3e0bf-7e9d-4d7a-95d8-8ddb04de9431",
+            "sourceColumn": "TotalProductCost",
+            "summarizeBy": "sum"
+          }
+        ],
+        "lineageTag": "057196aa-9dcd-4e81-944c-194bfdad16bf",
+        "measures": [
+          {
+            "name": "Toplam Satış",
+            "expression": "SUM(FactInternetSales[SalesAmount])",
+            "formatString": "#,0",
+            "lineageTag": "70fd1d47-297e-4224-9042-4b2622f876c5"
+          },
+          {
+            "name": "Toplam Maliyet",
+            "expression": "SUM(FactInternetSales[TotalProductCost])",
+            "formatString": "#,0",
+            "lineageTag": "c6b4e542-f781-48b1-b67a-e75650cea829"
+          },
+          {
+            "name": "Brüt Kâr",
+            "expression": "[Toplam Satış] - [Toplam Maliyet]",
+            "formatString": "#,0",
+            "lineageTag": "e58eb74f-867b-4fab-bf8d-07beaacea7b8"
+          },
+          {
+            "name": "Sipariş Sayısı",
+            "expression": "DISTINCTCOUNT(FactInternetSales[SalesOrderNumber])",
+            "formatString": "#,0",
+            "lineageTag": "a2c65d0e-3703-4d90-86f6-a19a7a129388"
+          },
+          {
+            "name": "Satılan Adet",
+            "expression": "SUM(FactInternetSales[OrderQuantity])",
+            "formatString": "#,0",
+            "lineageTag": "a41edce8-3f75-4352-bfe5-d879ae41db1b"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "FactInternetSales",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Kaynak = Sql.Database(\"localhost\", \"AdventureWorksDW2019\"),",
+                "    Tablo = Kaynak{[Schema=\"dbo\",Item=\"FactInternetSales\"]}[Data],",
+                "    Secilen = Table.SelectColumns(Tablo, {\"SalesOrderNumber\", \"ProductKey\", \"CustomerKey\", \"OrderDateKey\", \"SalesTerritoryKey\", \"OrderQuantity\", \"SalesAmount\", \"TotalProductCost\"})",
+                "in",
+                "    Secilen"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimProduct",
+        "columns": [
+          {
+            "name": "ProductKey",
+            "dataType": "int64",
+            "lineageTag": "fc6ccc33-4295-419c-8fde-810d16bc3396",
+            "sourceColumn": "ProductKey",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ProductSubcategoryKey",
+            "dataType": "int64",
+            "lineageTag": "993a3567-3084-4470-971e-0a8ace05c0f0",
+            "sourceColumn": "ProductSubcategoryKey",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "EnglishProductName",
+            "dataType": "string",
+            "lineageTag": "cdcf485b-9242-4c9a-81e2-23b7bc00f89c",
+            "sourceColumn": "EnglishProductName"
+          },
+          {
+            "name": "Color",
+            "dataType": "string",
+            "lineageTag": "037c9e16-a407-4ec0-bb65-60d6dd6fdde7",
+            "sourceColumn": "Color"
+          }
+        ],
+        "lineageTag": "781080e2-c90c-43c1-9296-cd2dea6244cb",
+        "partitions": [
+          {
+            "name": "DimProduct",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Kaynak = Sql.Database(\"localhost\", \"AdventureWorksDW2019\"),",
+                "    Tablo = Kaynak{[Schema=\"dbo\",Item=\"DimProduct\"]}[Data],",
+                "    Secilen = Table.SelectColumns(Tablo, {\"ProductKey\", \"ProductSubcategoryKey\", \"EnglishProductName\", \"Color\"})",
+                "in",
+                "    Secilen"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimProductSubcategory",
+        "columns": [
+          {
+            "name": "ProductSubcategoryKey",
+            "dataType": "int64",
+            "lineageTag": "43f52133-ceb2-4eca-b6f4-e06da1fc1a8e",
+            "sourceColumn": "ProductSubcategoryKey",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ProductCategoryKey",
+            "dataType": "int64",
+            "lineageTag": "8b6e9763-909d-4d69-8c65-5b5919deea9f",
+            "sourceColumn": "ProductCategoryKey",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "EnglishProductSubcategoryName",
+            "dataType": "string",
+            "lineageTag": "01d8e491-5857-46d2-87d8-39159ac5784e",
+            "sourceColumn": "EnglishProductSubcategoryName"
+          }
+        ],
+        "lineageTag": "29a1b358-ceaf-42bf-81b0-79ecb60d8fbf",
+        "partitions": [
+          {
+            "name": "DimProductSubcategory",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Kaynak = Sql.Database(\"localhost\", \"AdventureWorksDW2019\"),",
+                "    Tablo = Kaynak{[Schema=\"dbo\",Item=\"DimProductSubcategory\"]}[Data],",
+                "    Secilen = Table.SelectColumns(Tablo, {\"ProductSubcategoryKey\", \"ProductCategoryKey\", \"EnglishProductSubcategoryName\"})",
+                "in",
+                "    Secilen"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimProductCategory",
+        "columns": [
+          {
+            "name": "ProductCategoryKey",
+            "dataType": "int64",
+            "lineageTag": "b2929f39-b2f8-47b9-ab95-517f91224cf7",
+            "sourceColumn": "ProductCategoryKey",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "EnglishProductCategoryName",
+            "dataType": "string",
+            "lineageTag": "1c698ae8-a663-4df9-b2da-1901e4515688",
+            "sourceColumn": "EnglishProductCategoryName"
+          }
+        ],
+        "lineageTag": "2461302a-2328-4921-93de-db4ff16976cf",
+        "partitions": [
+          {
+            "name": "DimProductCategory",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Kaynak = Sql.Database(\"localhost\", \"AdventureWorksDW2019\"),",
+                "    Tablo = Kaynak{[Schema=\"dbo\",Item=\"DimProductCategory\"]}[Data],",
+                "    Secilen = Table.SelectColumns(Tablo, {\"ProductCategoryKey\", \"EnglishProductCategoryName\"})",
+                "in",
+                "    Secilen"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimCustomer",
+        "columns": [
+          {
+            "name": "CustomerKey",
+            "dataType": "int64",
+            "lineageTag": "00e73648-325b-4cd8-a2f8-4f1cdade7191",
+            "sourceColumn": "CustomerKey",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Gender",
+            "dataType": "string",
+            "lineageTag": "a44698e4-b4c8-43f3-9522-fcc451a54717",
+            "sourceColumn": "Gender"
+          },
+          {
+            "name": "MaritalStatus",
+            "dataType": "string",
+            "lineageTag": "0df09241-71a4-46d4-bbfb-9ef33afed5df",
+            "sourceColumn": "MaritalStatus"
+          },
+          {
+            "name": "EnglishEducation",
+            "dataType": "string",
+            "lineageTag": "05fe99df-988a-411b-bb1d-b99f19faa367",
+            "sourceColumn": "EnglishEducation"
+          },
+          {
+            "name": "YearlyIncome",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"currencyCulture\":\"tr-TR\"}"
+              }
+            ],
+            "dataType": "decimal",
+            "formatString": "\"₺\"#,0.###############;-\"₺\"#,0.###############;\"₺\"#,0.###############",
+            "lineageTag": "bfb35404-5e69-48e1-b426-8d1499dd47f4",
+            "sourceColumn": "YearlyIncome",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "14ddc558-8c11-465b-b102-0a2ab0d91f48",
+        "partitions": [
+          {
+            "name": "DimCustomer",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Kaynak = Sql.Database(\"localhost\", \"AdventureWorksDW2019\"),",
+                "    Tablo = Kaynak{[Schema=\"dbo\",Item=\"DimCustomer\"]}[Data],",
+                "    Secilen = Table.SelectColumns(Tablo, {\"CustomerKey\", \"Gender\", \"MaritalStatus\", \"EnglishEducation\", \"YearlyIncome\"})",
+                "in",
+                "    Secilen"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimDate",
+        "columns": [
+          {
+            "name": "DateKey",
+            "dataType": "int64",
+            "lineageTag": "66d7d84d-65e4-4c28-bc4a-9be57eee50cb",
+            "sourceColumn": "DateKey",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "CalendarYear",
+            "dataType": "int64",
+            "lineageTag": "c1421a2b-0e91-47f3-9b52-66b823ac1c3b",
+            "sourceColumn": "CalendarYear",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "MonthNumberOfYear",
+            "dataType": "int64",
+            "lineageTag": "729ac6ed-e878-4886-b4b4-dbe729227e88",
+            "sourceColumn": "MonthNumberOfYear",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "EnglishMonthName",
+            "dataType": "string",
+            "lineageTag": "fd53b8b6-380d-490c-81f4-33b772154117",
+            "sortByColumn": "MonthNumberOfYear",
+            "sourceColumn": "EnglishMonthName"
+          }
+        ],
+        "lineageTag": "8ff9739b-6d59-40c8-bacc-2afa04a2e8de",
+        "partitions": [
+          {
+            "name": "DimDate",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Kaynak = Sql.Database(\"localhost\", \"AdventureWorksDW2019\"),",
+                "    Tablo = Kaynak{[Schema=\"dbo\",Item=\"DimDate\"]}[Data],",
+                "    Secilen = Table.SelectColumns(Tablo, {\"DateKey\", \"CalendarYear\", \"MonthNumberOfYear\", \"EnglishMonthName\"})",
+                "in",
+                "    Secilen"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimSalesTerritory",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "SalesTerritoryKey",
+            "dataType": "int64",
+            "lineageTag": "420bf306-f190-408c-b65f-7caab49f5d86",
+            "sourceColumn": "SalesTerritoryKey",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "SalesTerritoryRegion",
+            "dataType": "string",
+            "lineageTag": "d74dd262-bf81-4563-8785-2a438c926f00",
+            "sourceColumn": "SalesTerritoryRegion"
+          },
+          {
+            "name": "SalesTerritoryCountry",
+            "dataType": "string",
+            "lineageTag": "b7130e9a-993c-45cf-972e-09be3ac11446",
+            "sourceColumn": "SalesTerritoryCountry"
+          },
+          {
+            "name": "SalesTerritoryGroup",
+            "dataType": "string",
+            "lineageTag": "6a953f95-7445-48f1-92d9-4f7421aaa37e",
+            "sourceColumn": "SalesTerritoryGroup"
+          }
+        ],
+        "lineageTag": "93d8b377-2274-49f7-9794-d1c7f9ce28fb",
+        "partitions": [
+          {
+            "name": "DimSalesTerritory",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Kaynak = Sql.Database(\"localhost\", \"AdventureWorksDW2019\"),",
+                "    Tablo = Kaynak{[Schema=\"dbo\",Item=\"DimSalesTerritory\"]}[Data],",
+                "    Secilen = Table.SelectColumns(Tablo, {\"SalesTerritoryKey\", \"SalesTerritoryRegion\", \"SalesTerritoryCountry\", \"SalesTerritoryGroup\"})",
+                "in",
+                "    Secilen"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

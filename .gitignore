@@ -1,0 +1,9 @@
+# Power BI yerel önbellek ve ayarlar
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+
+# Veritabanı yedekleri (büyük dosya, Microsoft'tan indirilir)
+*.bak
+
+# Office geçici dosyaları
+~$*
